@@ -8,10 +8,7 @@ var returnIndex = require('../controllers/returnIndex');
 // routes
 router.get('/', returnIndex);
 
-/***** ERROR HANDLING *****/
-// 404
-// router.all('*', function (req, res) {
-//     res.sendFile(path.join(__dirname, '../../public/views/404.html'));
-// });
+// routes
+router.get('/*', returnIndex);
 
 module.exports = router;

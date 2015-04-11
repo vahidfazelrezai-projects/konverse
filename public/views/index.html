@@ -1,13 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="konverseApp">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>konverse</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+        <!-- <link rel="shortcut icon" href="/assets/img/icons/favicon.ico"> -->
+
+        <script src="/assets/js/angular.min.js"></script>
+        <script src="/assets/js/angular-route.min.js"></script>
+
+        <script src="/app.js"></script>
+        <script src="/controllers/pageController.js"></script>
+        <script src="/controllers/splashController.js"></script>
+        <script src="/controllers/roomController.js"></script>
+        
+        <script src="/services/DataService.js"></script>
+        
+<!--
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/custom.css">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,700' rel='stylesheet' type='text/css'> 
+-->   
+
     </head>
-    <body>
-      <div>hi</div>
+    <body ng-controller="pageController">
+      <nav-bar></nav-bar>
+      <div id="page-content" class="fill">
+        <div ng-view></div>
+      </div>
     </body>
 </html>
