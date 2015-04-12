@@ -13,7 +13,6 @@
                         </div>
                         <form>
                             <div class="form-group">
-                                <b>Participants include </b><em>{{roomUsernames.join(', ')}}</em>
                                 <div class="btn-group btn-group-xs" role="group">
                                 <button type="button" class="btn btn-xs btn-default dropdown-toggle" ng-click="clicked = true; $event.stopPropagation();" aria-expanded="false">
                                   Options
@@ -22,8 +21,10 @@
                                 <ul class="dropdown-menu" ng-show="clicked">
                                   <li><a class="btn btn-xs" ng-click="exportConversation()">Export conversation</a></li>
                                   <li><a class="btn btn-xs" ng-click="clearConversation()">Clear conversation</a></li>
+
                                 </ul>
                               </div>
+                              <span class="inline-names"><b>Participants include </b><em>{{roomUsernames.join(', ')}}</em></span>
                             </div>
                         </form>
                     </div>
