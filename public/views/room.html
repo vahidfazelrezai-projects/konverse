@@ -1,24 +1,26 @@
-<div id="room-container" class="row">
-    <div id="header">
-        <b>Room:</b> {{rid}}, <b>User:</b> {{username}}
-    </div>
-    
-    <div id="gate" ng-hide="insideRoom">
-        <form>
-            <b><span>Name:</span></b>
-            <input ng-model="username"/>
-            <button type="submit" ng-hide="insideRoom" ng-href='#' ng-click="attemptEnterRoom()">Enter Room</button>
-        </form>
-    </div>
+<div class="container">
+    <div id="room-container" class="row">
+        <div id="header">
+            <b>Room:</b> {{rid}}, <b>User:</b> {{username}}
+        </div>
+        
+        <div id="gate" ng-hide="insideRoom">
+            <form>
+                <b><span>Name:</span></b>
+                <input ng-model="username"/>
+                <button type="submit" ng-hide="insideRoom" ng-href='#' ng-click="attemptEnterRoom()">Enter Room</button>
+            </form>
+        </div>
 
-    <div id="userlist" ng-show="insideRoom">
-        <b>Users in room:</b>
-        <div ng-repeat="roomUsername in roomUsernames">{{roomUsername}}</div>
-    </div>
+        <div id="userlist" ng-show="insideRoom">
+            <b>Users in room:</b>
+            <div ng-repeat="roomUsername in roomUsernames">{{roomUsername}}</div>
+        </div>
 
-    <div id="conversation" ng-show="insideRoom">
-        <b>Current text:</b> {{currentText}}
-        <b>Text:</b>
-        <div ng-repeat="statement in transcript">[{{statement.time | date:'M/dd/yyyy @ h:mma'}}] <b>{{statement.name}}:</b> {{statement.text}}</div>
+        <div id="conversation" ng-show="insideRoom">
+            <b>Current text:</b> {{currentText}}
+            <b>Text:</b>
+            <div ng-repeat="statement in transcript">[{{statement.time | date:'M/dd/yyyy @ h:mma'}}] <b>{{statement.name}}:</b> {{statement.text}}</div>
+        </div>
     </div>
 </div>

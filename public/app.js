@@ -27,3 +27,12 @@ angular.module('konverseApp', ['ngRoute'])
         // }
     });
 })
+
+//nav-bar.html
+.directive("navbar", function() {
+    return {
+        restrict: 'E',
+        templateUrl: '/views/navbar.html',
+        controller: 'navbarController'
+    };
+});

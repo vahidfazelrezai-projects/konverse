@@ -1,0 +1,183 @@
+body {
+    width: 100%;
+    height: 100%;
+    font-family: "Lato",Helvetica,Arial,sans-serif;
+    color: #fff;
+    background-color: #AD82FF;
+}
+html {
+    width: 100%;
+    height: 100%;
+    margin-right: 0px;
+}
+h1 {
+	font-family: "Slabo 27px",Helvetica,Arial,sans-serif;
+	font-size: 400% !important;
+	cursor: default;
+}
+h2 {
+	font-size: 150% !important;
+	cursor: default;
+}
+*{
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+p{
+	-webkit-touch-callout: all;
+    -webkit-user-select: all;
+    -khtml-user-select: all;
+    -moz-user-select: all;
+    -ms-user-select: all;
+    user-select: all;
+}
+::selection {
+	background-color: rgba(255,158,157,0.7);
+}
+.intro {
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 100px 0;
+    text-align: center;
+    color: #fff;
+    background: url(../img/intro-bg.jpg) no-repeat bottom center scroll;
+    background-color: #AD82FF;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.intro .intro-body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.intro .intro-body .brand-heading {
+    font-size: 40px;
+}
+
+.intro .intro-body .intro-text {
+    font-size: 18px;
+}
+#about {
+	border-top: 2px solid #fff;
+}
+#about a {
+	color: #fff;
+}
+#about .btn {
+	background-color: rgba(255,255,255,0);
+	border: 1px solid #fff;
+}
+.btn-repeat {
+	display: inline-block;
+	margin: 5px;
+}
+.btn-circle {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 100%!important;
+    font-size: 40px;
+    color: #fff;
+    background: 0 0;
+    position: relative;
+    left: -20px;
+}
+.btn-circle i {
+	position: relative;
+	top: -12px;
+	left: -3px;
+}
+
+.btn-circle:hover,
+.btn-circle:focus,
+#about .btn:hover,
+#about .btn:focus {
+    outline: 0;
+    color: #fff;
+    background: rgba(255,255,255,.3);
+}
+
+.btn-circle,
+#about .btn {
+    -webkit-transition: background 0.5s;
+}
+.navbar-custom {
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    text-transform: uppercase;
+    font-family: "Lato",Helvetica,Arial,sans-serif;
+    background-color: #000;
+}
+
+.navbar-custom .navbar-brand {
+    font-weight: 700;
+    -webkit-transition: color 0.5s;
+}
+
+.navbar-custom .navbar-brand:hover {
+	color: #ccc;
+	-webkit-transition: color 0.5s;
+}
+
+.navbar-custom .navbar-brand:focus {
+    outline: 0;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle {
+    padding: 4px 6px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.navbar-custom .navbar-brand .navbar-toggle:focus,
+.navbar-custom .navbar-brand .navbar-toggle:active {
+    outline: 0;
+}
+
+.navbar-custom a {
+    color: #fff;
+}
+
+.navbar-custom .nav li a {
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+.navbar-custom .nav li a:hover {
+    outline: 0;
+    color: rgba(255,255,255,.8);
+    background-color: transparent;
+}
+
+.navbar-custom .nav li a:focus,
+.navbar-custom .nav li a:active {
+    outline: 0;
+    background-color: transparent;
+}
+
+.navbar-custom .nav li.active {
+    outline: 0;
+}
+
+.navbar-custom .nav li.active a {
+    background-color: rgba(255,255,255,.3);
+}
+
+.navbar-custom .nav li.active a:hover {
+    color: #fff;
+}
+
+@media(min-width:1200px) {
+	.btn-circle {
+		left: -40px;
+	}
+}
