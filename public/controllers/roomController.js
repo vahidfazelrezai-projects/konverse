@@ -4,7 +4,7 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
     var content = 'file content';
     var blob = new Blob([ content ], { type : 'text/plain' });
     $scope.url = (window.URL || window.webkitURL).createObjectURL( blob );
-
+    $scope.clicked = false;
     $scope.insideRoom = false;
     $scope.rid = $routeParams.rid;
     $scope.uid = 'none';
