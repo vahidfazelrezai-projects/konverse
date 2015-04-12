@@ -5,8 +5,8 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
     $scope.rid = $routeParams.rid;
     $scope.uid = 'none';
     $scope.username = '';
-    $scope.currentText = '';
     $scope.roomUsernames = [];
+    $scope.currentText = '';
     $scope.transcript = [];
     $scope.lastStatementId = '';
 
@@ -25,11 +25,10 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
     });
 
     // update conversation transcript whenever it is changed
-    fb.child('transcript').on('value', function(transcriptSnapshot) {
+    fb.child('transcript').orderByChild('time').on('value', function(transcriptSnapshot) {
         $scope.transcript = [];
         transcriptSnapshot.forEach(function(statementSnapshot) {
             $scope.transcript.push(statementSnapshot.val());
-            console.log(statementSnapshot.val());
         });
         if(!$scope.$$phase) {
             $scope.$apply()
@@ -62,58 +61,14 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
         var recognition = new webkitSpeechRecognition();
         recognition.continuous = true;
         recognition.interimResults = true;
+
         recognition.onresult = function(event) { 
-            $scope.currentText = event.results[0][0].transcript + "...";
-            console.log($scope.currentText);
-            if (event.results[0][0].confidence > 0.8) {
-                fb.child('members').child($scope.uid).child('currentText').set($scope.currentText);
-                fb.child('transcript').push({'time': Firebase.ServerValue.TIMESTAMP, 'name': $scope.username, 'text': $scope.currentText});
-            }
+            $scope.currentText = event.results[0][0].transcript;
+            fb.child('members').child($scope.uid).child('currentText').set($scope.currentText);
+            fb.child('transcript').push({'time': Firebase.ServerValue.TIMESTAMP, 'name': $scope.username, 'text': $scope.currentText});
         }
+
         recognition.start();
     }
-
-
-
-
-
-    // ////// IT WORKS //////
-    // // audio input
-    // var recorder;
-    // function startUserMedia(stream) {
-    //     var input = audio_context.createMediaStreamSource(stream);
-    //     console.log('Media stream created.');
-    //     recorder = new Recorder(input);
-    //     console.log('Recorder initialised.');
-    // }
-    // // init function from Recorderjs example
-    // try {
-    //     // webkit shim
-    //     window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    //     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-    //     window.URL = window.URL || window.webkitURL;
-  
-    //     audio_context = new AudioContext;
-    //     console.log('Audio context set up.');
-    //     console.log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
-
-    // } catch (e) {
-    //     alert('No web audio support in this browser!');
-    // }
-    // navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-    //     console.log('No live audio input: ' + e);
-    // });
-    // ////// IT WORKS //////
-
-    // function getBufferCallback( buffers ) {
-    //     var newSource = audioContext.createBufferSource();
-    //     var newBuffer = audioContext.createBuffer( 2, buffers[0].length, audioContext.sampleRate );
-    //     newBuffer.getChannelData(0).set(buffers[0]);
-    //     newBuffer.getChannelData(1).set(buffers[1]);
-    //     newSource.buffer = newBuffer;
-
-    //     newSource.connect( audioContext.destination );
-    //     newSource.start(0);
-    // }
 
 });

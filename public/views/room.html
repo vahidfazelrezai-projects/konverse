@@ -17,6 +17,7 @@
     </div>
 
     <div id="conversation" ng-show="insideRoom">
+        <b>Current text:</b> {{currentText}}
         <b>Text:</b>
         <div ng-repeat="statement in transcript">[{{statement.time | date:'M/dd/yyyy @ h:mma'}}] <b>{{statement.name}}:</b> {{statement.text}}</div>
     </div>
