@@ -33,6 +33,5 @@ angular.module('konverseApp', ['ngRoute'])
     return {
         restrict: 'E',
         templateUrl: '/views/navbar.html',
-        controller: 'navbarController'
     };
 });

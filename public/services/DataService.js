@@ -19,8 +19,14 @@ angular.module('konverseApp').factory('DataService', function($http, $q){
         postData: function(path, paramsToPass) {
             return $http.post(path, { params: paramsToPass})
                 .then(function(response) {
-                        console.log(response.data);
+                    console.log("\tpostData response from " + path + ": " + response);
+                    if (typeof response.data === 'object') {
+                        
                         return response.data;
+                    } 
+                    else {
+                        return $q.reject(response.data);
+                    }
                 }, function(response) {
                     return $q.reject(response.data);
                 }
