@@ -67,6 +67,7 @@ section {
 }
 #about {
 	border-top: 2px solid #fff;
+	padding: 10px 0;
 }
 #about a {
 	color: #fff;
@@ -199,6 +200,7 @@ section {
 }
 .inline-names {
 	display: inline;
+	margin: 0 10px;
 }
 .input-disabled {
 	background-color: #fff !important;
