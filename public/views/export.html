@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>konverse</title>
+        <meta name="description" content="">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+    </head>
+    <body>
+    <div id="text"></div>
+    </body>
+    <script>
+    	// Firebase for current room
+    	var name = window.location.pathname.substring(1,window.location.pathname.length-4);
+    	console.log(name);
+    	var fb = new Firebase('https://konverse.firebaseio.com/' + name);
+    	var transcript = [];
+    	// update conversation transcript whenever it is changed
+	    fb.child('transcript').orderByChild('time').on('value', function(transcriptSnapshot) {
+	        transcript = [];
+	        transcriptSnapshot.forEach(function(statementSnapshot) {
+	            transcript.unshift(statementSnapshot.val());
+	        });
+	        var string = "";
+	        for(var i = 0; i < transcript.length; i++) {
+	        	var statement = transcript[i];
+	        	string += "[" + statement.time + "] " + statement.name + ": " +statement.text + "\n<br>";
+		    }
+		    console.log(string);
+		    $("#text").html(string);
+	    })
+	    
+	    
+
+    </script>
+</html>

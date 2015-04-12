@@ -129,11 +129,6 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
         fb.child('sentiment').remove();
     }
 
-    $scope.exportConversation = function() {
-        var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, "hello world.txt");
-    }
-
     function playDing() {
         var snd = new Audio('/assets/ding.wav');
         snd.play();
