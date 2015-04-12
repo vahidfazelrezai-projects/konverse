@@ -6,7 +6,7 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
     $scope.uid = 'none';
     $scope.username = '';
     $scope.roomUsernames = [];
-    $scope.currentText = '';
+    $scope.currentText = '[waiting for microphone...]';
     $scope.transcript = [];
     $scope.lastStatementId = '';
 
@@ -59,13 +59,56 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
     // start speech recognition and listen for events
     function startSpeechToText() {
         var recognition = new webkitSpeechRecognition();
+        var idleTimeout;
+        var sentTimeout;
+        var firstIndex = 0;
+        var statementSent = 0;
+        var offset = 0;
         recognition.continuous = true;
         recognition.interimResults = true;
 
-        recognition.onresult = function(event) { 
-            $scope.currentText = event.results[0][0].transcript;
+        recognition.onaudiostart = function(event) {
+            $scope.currentText = '';
+        }
+
+        recognition.onspeechend = function(event) {
+            recognition.stop();
+        }
+
+        recognition.onend = function(event) {
+            $scope.currentText = "[You've been quiet... please regrant access to the microphone to talk again.]";
+            recognition.start();
+            statementSent = 0;
+        };
+
+        recognition.onresult = function(event) {
+            console.log(event.results); 
+            console.log(event.resultIndex); 
+            console.log(offset)
+            statementSent -= 1;
+            if (event.results[event.resultIndex].isFinal == true) {
+                clearTimeout(idleTimeout);
+                if (statementSent <= 0) {
+                    statementSent = 3;
+                    fb.child('transcript').push({'time': Firebase.ServerValue.TIMESTAMP, 'name': $scope.username, 'text': event.results[event.resultIndex][0].transcript.substring(offset)});
+                    $scope.currentText = '';
+                }
+                offset = 0;
+                console.log('SENT NORMALLY');
+            } else {
+                $scope.currentText = event.results[event.resultIndex][0].transcript.substring(offset) + '...';
+                clearTimeout(idleTimeout);
+                idleTimeout = setTimeout(function() {
+                    if (statementSent <= 0) {
+                        statementSent = 3;
+                        fb.child('transcript').push({'time': Firebase.ServerValue.TIMESTAMP, 'name': $scope.username, 'text': $scope.currentText.substring(0,$scope.currentText.length-2)});
+                        offset = $scope.currentText.length-2;
+                        $scope.currentText = '';
+                    }
+                    console.log('IDLED');
+                }, 3000);
+            }
             fb.child('members').child($scope.uid).child('currentText').set($scope.currentText);
-            fb.child('transcript').push({'time': Firebase.ServerValue.TIMESTAMP, 'name': $scope.username, 'text': $scope.currentText});
         }
 
         recognition.start();
