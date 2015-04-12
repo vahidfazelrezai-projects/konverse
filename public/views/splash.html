@@ -10,12 +10,12 @@
 	                            <form>
 	                            	<div class="form-group">
 	                            		<div class="col-xs-2 pull-right">
-				                            <button class="btn btn-circle">
+				                            <button class="btn btn-circle btn-lg-circle" ng-click="go(roomName)">
 				                                <i class="fa fa-angle-double-right"></i>
 				                            </button>
 				                        </div>
 	                            		<div class="col-xs-8 pull-right">
-			                            	<input type="text" class="form-control input-lg" placeholder="Start a room...">
+			                            	<input type="text" ng-model="roomName" class="form-control input-lg" placeholder="Start a room...">
 			                        	</div>
 			                        	
 			                        </div>
@@ -29,9 +29,9 @@
 	    <section id="about" class="container content-section text-center">
 	        <div class="row">
 	            <div class="col-lg-8 col-lg-offset-2">
-	                <h2>Join a Room</h2>
+	                <h2>Join a Room{{test}}</h2>
 	                <p>These meetings have been made public by their owners. Feel free to drop in!</p>
-	                <div ng-repeat="room in rooms" class="btn-repeat"> <a class="btn btn-white" href="/{{room}}">{{room}}</a>
+	                <div ng-repeat="room in rooms" class="btn-repeat"> <a class="btn btn-white" ng-click="go(room)">{{room}}</a>
 	            </div>
 	        </div>
 	    </section>

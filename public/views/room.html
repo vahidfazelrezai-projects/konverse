@@ -1,26 +1,35 @@
 <div class="container">
     <div id="room-container" class="row">
-        <div id="header">
-            <b>Room:</b> {{rid}}, <b>User:</b> {{username}}
-        </div>
-        
-        <div id="gate" ng-hide="insideRoom">
-            <form>
-                <b><span>Name:</span></b>
-                <input ng-model="username"/>
-                <button type="submit" ng-hide="insideRoom" ng-href='#' ng-click="attemptEnterRoom()">Enter Room</button>
-            </form>
-        </div>
-
-        <div id="userlist" ng-show="insideRoom">
-            <b>Users in room:</b>
-            <div ng-repeat="roomUsername in roomUsernames">{{roomUsername}}</div>
-        </div>
-
-        <div id="conversation" ng-show="insideRoom">
-            <b>Current text:</b> {{currentText}}
-            <b>Text:</b>
-            <div ng-repeat="statement in transcript">[{{statement.time | date:'M/dd/yyyy @ h:mma'}}] <b>{{statement.name}}:</b> {{statement.text}}</div>
-        </div>
+        <section class="room">
+            <div class="row unstretch">
+                <h2 ng-hide="insideRoom">Join {{rid}} to see what people are talking about!</h2>
+                <h2 class="text-left pull-left col-sm-6" ng-show="insideRoom">Conversation: {{rid}}</h2>        
+                <div class="push-right user-list col-sm-6" id="userlist" ng-show="insideRoom">
+                        <b>Participants include </b><div ng-repeat="roomUsername in roomUsernames" class="inline-names">{{roomUsername}}</div>
+                </div>
+            </div>
+            <div id="gate" ng-hide="insideRoom">
+                <form>
+                    <div class="form-group col-sm-6 col-sm-offset-3">
+                        <div class="col-xs-2 pull-right">
+                            <button class="btn btn-circle btn-sm-circle" ng-click="attemptEnterRoom()">
+                                <i class="fa fa-angle-double-right"></i>
+                            </button>
+                        </div>
+                        <div class="col-xs-8 pull-right">
+                            <input autofocus class="form-control" ng-model="username" placeholder="Enter your name..."/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row unstretch">
+                <div class="container chat" ng-show="insideRoom">
+                    <div id="conversation">
+                        <b>Current text:</b> {{currentText}}
+                        <div ng-repeat="statement in transcript">[<em>{{statement.time | date:'M/dd/yyyy @ h:mma'}}</em>]  <b>{{statement.name}}:</b> {{statement.text}}</div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </div>

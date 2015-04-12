@@ -1,6 +1,5 @@
 //room view controller
 angular.module('konverseApp').controller("roomController", function($scope,$routeParams,DataService) {
-
     $scope.insideRoom = false;
     $scope.rid = $routeParams.rid;
     $scope.uid = 'none';
