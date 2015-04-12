@@ -200,11 +200,15 @@ section {
 .inline-names {
 	display: inline;
 }
-
+.input-disabled {
+	background-color: #fff !important;
+	cursor: default !important;
+}
 .chat {
 	background-color: #fff;
+	margin-top: 10px;
 	color: #333;
-	border-radius: 5px;
+	border-radius: 10px;
 	height: 70vh;
 	overflow: scroll;
 	text-align: left;

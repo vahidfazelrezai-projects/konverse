@@ -22,10 +22,10 @@
                     </div>
                 </form>
             </div>
-            <div class="row unstretch">
-                <div class="container chat" ng-show="insideRoom">
+            <div class="row unstretch" ng-show="insideRoom">
+                <input class="form-control input-disabled" ng-model="currentText" disabled>
+                <div class="container chat">
                     <div id="conversation">
-                        <b>Current text:</b> {{currentText}}
                         <div ng-repeat="statement in transcript">[<em>{{statement.time | date:'M/dd/yyyy @ h:mma'}}</em>]  <b>{{statement.name}}:</b> {{statement.text}}</div>
                     </div>
                 </div>
