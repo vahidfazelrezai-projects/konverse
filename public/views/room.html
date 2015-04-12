@@ -5,7 +5,7 @@
                 <h2 ng-hide="insideRoom">Join {{rid}} to see what people are talking about!</h2>
                 <h2 class="text-left pull-left col-sm-6" ng-show="insideRoom">Conversation: {{rid}}</h2>        
                 <div class="push-right user-list col-sm-6" id="userlist" ng-show="insideRoom">
-                        <b>Participants include </b><div ng-repeat="roomUsername in roomUsernames" class="inline-names">{{$first ? '' : $last ? ' and ' : ', '}}{{roomUsername}}</div>
+                        <b>Participants include </b><div ng-repeat="roomUsername in roomUsernames" class="inline-names">{{$first ? '' : $last ? ' and ' : ', '}}<em>{{roomUsername}}</em></div>
                 </div>
             </div>
             <div id="gate" ng-hide="insideRoom">
