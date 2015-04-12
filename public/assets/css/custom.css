@@ -216,6 +216,9 @@ section {
 .timestamp {
 	font-size: 75%;
 }
+.dropdown-menu {
+	display: block;
+}
 
 @media(min-width:1200px) {
 	.btn-lg-circle {
