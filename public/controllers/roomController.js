@@ -1,5 +1,10 @@
 //room view controller
 angular.module('konverseApp').controller("roomController", function($scope,$routeParams,DataService) {
+
+    var content = 'file content';
+    var blob = new Blob([ content ], { type : 'text/plain' });
+    $scope.url = (window.URL || window.webkitURL).createObjectURL( blob );
+
     $scope.insideRoom = false;
     $scope.rid = $routeParams.rid;
     $scope.uid = 'none';
@@ -8,6 +13,7 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
     $scope.currentText = '[waiting for microphone...]';
     $scope.transcript = [];
     $scope.lastStatementId = '';
+    $scope.sentimentPercent = 20;
 
     // Firebase for current room
     var fb = new Firebase('https://konverse.firebaseio.com/' + $scope.rid);
@@ -19,7 +25,7 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
             $scope.roomUsernames.push(memberSnapshot.child('name').val());
         });
         if(!$scope.$$phase) {
-            $scope.$apply()
+            $scope.$apply();
         }
     });
 
@@ -32,6 +38,9 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
         if(!$scope.$$phase) {
             $scope.$apply()
         }
+        // $scope.sentimentPercent = getSentiment();
+        $scope.sentimentPercent = 60;
+        playDing();
     });
 
     // try entering room with given username, fail if username is already taken
@@ -52,6 +61,7 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
         $scope.insideRoom = true;
         $scope.uid = fb.child("members").push({"name":$scope.username}).key();
         fb.child('members').child($scope.uid).onDisconnect().remove();
+        playDing();
         startSpeechToText();
     }
 
@@ -78,39 +88,94 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
             $scope.currentText = "[You've been quiet... please regrant access to the microphone to talk again.]";
             recognition.start();
             statementSent = 0;
+            $scope.currentText = '';
         };
 
         recognition.onresult = function(event) {
-            console.log(event.results); 
-            console.log(event.resultIndex); 
-            console.log(offset)
             statementSent -= 1;
             if (event.results[event.resultIndex].isFinal == true) {
                 clearTimeout(idleTimeout);
                 if (statementSent <= 0) {
                     statementSent = 3;
                     fb.child('transcript').push({'time': Firebase.ServerValue.TIMESTAMP, 'name': $scope.username, 'text': event.results[event.resultIndex][0].transcript.substring(offset)});
+                    updateSentiment(event.results[event.resultIndex][0].transcript.substring(offset));
                     $scope.currentText = '';
                 }
                 offset = 0;
-                console.log('SENT NORMALLY');
             } else {
                 $scope.currentText = event.results[event.resultIndex][0].transcript.substring(offset) + '...';
                 clearTimeout(idleTimeout);
                 idleTimeout = setTimeout(function() {
                     if (statementSent <= 0) {
                         statementSent = 3;
-                        fb.child('transcript').push({'time': Firebase.ServerValue.TIMESTAMP, 'name': $scope.username, 'text': $scope.currentText.substring(0,$scope.currentText.length-2)});
+                        fb.child('transcript').push({'time': Firebase.ServerValue.TIMESTAMP, 'name': $scope.username, 'text': $scope.currentText.substring(0,$scope.currentText.length-3)});
+                        updateSentiment($scope.currentText.substring(0,$scope.currentText.length-3));
                         offset = $scope.currentText.length-2;
                         $scope.currentText = '';
                     }
-                    console.log('IDLED');
                 }, 3000);
             }
             fb.child('members').child($scope.uid).child('currentText').set($scope.currentText);
         }
 
         recognition.start();
+    }
+
+    $scope.clearConversation = function() {
+        fb.child('transcript').remove();
+        fb.child('sentiment').remove();
+    }
+
+    $scope.exportConversation = function() {
+        var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "hello world.txt");
+    }
+
+    function playDing() {
+        var snd = new Audio('/assets/ding.wav');
+        snd.play();
+    }
+
+    function updateSentiment(newStatement) {
+        var newRating;
+        DataService.postData('/sentimentCalculator', {textToAnalyze: newStatement}).then(function(response) {
+            newRating = response.data;
+        });
+
+        console.log(newRating);
+
+        fb.once('value', function(sentimentSnapshot) {
+            var newTotal = 0;
+            var newCount = 0;
+            
+            if (sentimentSnapshot.child('sentiment').exists()) {
+                newTotal = sentimentSnapshot.child('sentiment').total + newRating;
+                newCount = sentimentSnapshot.child('sentiment').count + 1;
+            } else {
+                newTotal = newRating;
+                newCount = 1;
+            }
+            
+            fb.child('sentiment').set({ total: newTotal, count: newCount });
+        });
+
+    }
+
+    function getSentiment() {
+        var count = 0;
+        var total = 0;
+
+        fb.once('value', function(sentimentSnapshot) {
+            if (sentimentSnapshot.child('sentiment').exists()) {
+                total = sentimentSnapshot.child('sentiment').total + newRating;
+                count = sentimentSnapshot.child('sentiment').count + 1;
+            } else {
+                total = 0.5;
+                count = 1;
+            }
+        });
+
+        return (1.0 * total)/(1.0 * count);
     }
 
 });

@@ -5,6 +5,14 @@
                 <h2 ng-hide="insideRoom">Join {{rid}} to see what people are talking about!</h2>
                 <h2 class="text-left pull-left col-sm-6" ng-show="insideRoom">Conversation: {{rid}}</h2>        
                 <div class="push-right user-list col-sm-6" id="userlist" ng-show="insideRoom">
+                        Happiness: 
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="sentimentPercent" aria-valuemin="0" aria-valuemax="100" style="width: {{sentimentPercent}}%">
+                                <span class="sr-only">{{sentimentPercent}}% Happy</span>
+                            </div>
+                        </div>
+                        <a type="button" class="btn btn-xs btn-default" ng-click="exportConversation()">Download Transcript</a>
+                        <a type="button" class="btn btn-xs btn-default" ng-click="clearConversation()">Clear Conversation</a>
                         <b>Participants include </b><div ng-repeat="roomUsername in roomUsernames" class="inline-names">{{$first ? '' : $last ? ' and ' : ', '}}<em>{{roomUsername}}</em></div>
                 </div>
             </div>

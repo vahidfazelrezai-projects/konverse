@@ -14,9 +14,9 @@ angular.module('konverseApp', ['ngRoute'])
         .otherwise({
             redirectTo: '/'
         });
-    //remove # from URL
-    $locationProvider.html5Mode(true);
-}])
+        //remove # from URL
+        $locationProvider.html5Mode(true);
+    }])
 
 .run(function($route, $rootScope, $location, $routeParams) {
     //watch for route changes and redirect accordingly

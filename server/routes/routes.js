@@ -4,11 +4,10 @@ var path = require('path');
 
 // controllers
 var returnIndex = require('../controllers/returnIndex');
+var sentimentCalculator = require('../controllers/sentimentCalculator');
 
-// routes
 router.get('/', returnIndex);
-
-// routes
+router.post('/sentimentCalculator', sentimentCalculator);
 router.get('/*', returnIndex);
 
 module.exports = router;
