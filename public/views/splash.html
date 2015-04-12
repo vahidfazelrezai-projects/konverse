@@ -1,4 +1,43 @@
-<div id="splash-container" class="row">
-    <div ng-repeat="room in rooms"> <a href="/{{room}}">{{room}}</a>
-    </div>
+<div class="container">
+	<div id="splash-container" class="row">
+		<header class="intro">
+	            <div class="intro-body">
+	                <div class="container">
+	                    <div class="row">
+	                        <div class="col-md-8 col-md-offset-2">
+	                            <h1 class="brand-heading">Konverse</h1>
+	                            <h2 class="intro-text">Capture your conversations.</h2>
+	                            <form>
+	                            	<div class="form-group">
+	                            		<div class="col-xs-2 pull-right">
+				                            <button class="btn btn-circle">
+				                                <i class="fa fa-angle-double-right"></i>
+				                            </button>
+				                        </div>
+	                            		<div class="col-xs-8 pull-right">
+			                            	<input type="text" class="form-control input-lg" placeholder="Start a room...">
+			                        	</div>
+			                        	
+			                        </div>
+			                    </form>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </header>
+		<!-- About Section -->
+	    <section id="about" class="container content-section text-center">
+	        <div class="row">
+	            <div class="col-lg-8 col-lg-offset-2">
+	                <h2>Join a Room</h2>
+	                <p>These meetings have been made public by their owners. Feel free to drop in!</p>
+	                <div ng-repeat="room in rooms" class="btn-repeat"> <a class="btn btn-white" href="/{{room}}">{{room}}</a>
+	            </div>
+	        </div>
+	    </section>
+	</div>
 </div>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery-easing.js"></script>
+<script src="/assets/js/grayscale.js"></script>

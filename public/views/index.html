@@ -7,6 +7,11 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+        <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Lato|Slabo+27px' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/assets/css/custom.css">
+
         <!-- <link rel="shortcut icon" href="/assets/img/icons/favicon.ico"> -->
 
         <script src="/assets/js/angular.min.js"></script>
@@ -21,16 +26,11 @@
         <script src="/controllers/roomController.js"></script>
         
         <script src="/services/DataService.js"></script>
-        
-<!--
-        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/assets/css/custom.css">
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,700' rel='stylesheet' type='text/css'> 
--->   
+   
 
     </head>
     <body ng-controller="pageController">
-      <nav-bar></nav-bar>
+    <navbar></navbar>
       <div id="page-content" class="fill">
         <div ng-view></div>
       </div>
