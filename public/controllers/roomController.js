@@ -80,6 +80,10 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
             $scope.currentText = '';
         }
 
+        recognition.onspeechstart = function(event) {
+            $scope.currentText = '';
+        }
+
         recognition.onspeechend = function(event) {
             recognition.stop();
         }
@@ -88,7 +92,6 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
             $scope.currentText = "[You've been quiet... please regrant access to the microphone to talk again.]";
             recognition.start();
             statementSent = 0;
-            $scope.currentText = '';
         };
 
         recognition.onresult = function(event) {
@@ -138,11 +141,13 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
 
     function updateSentiment(newStatement) {
         var newRating;
-        DataService.postData('/sentimentCalculator', {textToAnalyze: newStatement}).then(function(response) {
-            newRating = response.data;
+        DataService.postData('/sentimentCalculator', {textToAnalyze: newStatement})
+        .then(function(data) {
+            console.log("data", data);
+            newRating = data;
         });
 
-        console.log(newRating);
+        console.log("rating", newRating);
 
         fb.once('value', function(sentimentSnapshot) {
             var newTotal = 0;

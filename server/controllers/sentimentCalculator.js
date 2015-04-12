@@ -1,20 +1,20 @@
 var indico = require('indico.io');
-indico.apiKey = "fa3a1fd14dc12e78dc09620c23da993b";
+indico.apiKey = "5ad6952bd1689c50f80e36401d406c51";
 
 function sentimentCalculator(req, res) {
 
-    var sentiment = .5;
+    var sentiment = Math.random();
     var textToAnalyze = req.body.params.textToAnalyze;
 
-    console.log(textToAnalyze);
-    console.log(sentiment);
+    // console.log(textToAnalyze);
+    // console.log(sentiment);
 
-    indico.political(textToAnalyze).then(function(result) {
-        console.log(result);
-        sentiment = result['Libertarian'];
-    }).catch(function(err) {
-        console.log(err);
-    });
+    // indico.political(textToAnalyze).then(function(result) {
+    //     console.log(result);
+    //     sentiment = result['Libertarian'];
+    // }).catch(function(err) {
+    //     console.log(err);
+    // });
 
     res.send(sentiment);
 };
