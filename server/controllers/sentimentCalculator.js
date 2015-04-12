@@ -1,5 +1,5 @@
-var indico = require('indico.io');
-indico.apiKey = "5ad6952bd1689c50f80e36401d406c51";
+// var indico = require('indico.io');
+// indico.apiKey = "5ad6952bd1689c50f80e36401d406c51";
 
 function sentimentCalculator(req, res) {
 
