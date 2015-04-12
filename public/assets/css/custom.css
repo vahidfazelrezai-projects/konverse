@@ -213,6 +213,9 @@ section {
 	overflow: scroll;
 	text-align: left;
 }
+.timestamp {
+	font-size: 75%;
+}
 
 @media(min-width:1200px) {
 	.btn-lg-circle {

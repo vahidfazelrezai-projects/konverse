@@ -27,7 +27,7 @@ angular.module('konverseApp').controller("roomController", function($scope,$rout
     fb.child('transcript').orderByChild('time').on('value', function(transcriptSnapshot) {
         $scope.transcript = [];
         transcriptSnapshot.forEach(function(statementSnapshot) {
-            $scope.transcript.push(statementSnapshot.val());
+            $scope.transcript.unshift(statementSnapshot.val());
         });
         if(!$scope.$$phase) {
             $scope.$apply()

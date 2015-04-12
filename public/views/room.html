@@ -26,7 +26,7 @@
                 <input class="form-control input-disabled" ng-model="currentText" disabled>
                 <div class="container chat">
                     <div id="conversation">
-                        <div ng-repeat="statement in transcript">[<em>{{statement.time | date:'M/dd/yyyy @ h:mma'}}</em>]  <b>{{statement.name}}:</b> {{statement.text}}</div>
+                        <div ng-repeat="statement in transcript"><span class="timestamp">{{statement.time | date:'M/dd/yyyy @ h:mm a'}}</span>  <b>{{statement.name}}:</b> {{statement.text}}</div>
                     </div>
                 </div>
             </div>
